@@ -1,4 +1,4 @@
-# OrionCC — Minimal C Subset Compiler
+# Minimal C Subset Compiler
 
 **OrionCC** is a small, didactic **C subset compiler** and **stack‑based virtual machine**, implemented in C.
 
