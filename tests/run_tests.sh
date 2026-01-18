@@ -125,6 +125,8 @@ run_test "Missing closing paren" "(1 + 2" "" "true"
 run_test "Missing opening paren" "1 + 2)" "" "true"
 run_test "Invalid character" "1 + @ + 2" "" "true"
 run_test "Modulo by zero" "10 % 0" "" "true"
+run_test "Integer overflow" "21474836470" "" "true"
+echo ""
 echo ""
 
 # Summary
