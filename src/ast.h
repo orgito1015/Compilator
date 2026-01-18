@@ -11,7 +11,8 @@ typedef enum {
     OP_PLUS,
     OP_MINUS,
     OP_MUL,
-    OP_DIV
+    OP_DIV,
+    OP_MOD
 } BinOp;
 
 typedef enum {

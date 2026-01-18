@@ -10,6 +10,7 @@ typedef enum {
     BC_SUB,
     BC_MUL,
     BC_DIV,
+    BC_MOD,
     BC_NEG,
     BC_HALT
 } OpCode;

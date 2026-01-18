@@ -59,6 +59,10 @@ void lexer_next(Lexer *lex) {
             lex->current_token.kind = TOK_SLASH;
             lexer_advance(lex);
             return;
+        case '%':
+            lex->current_token.kind = TOK_PERCENT;
+            lexer_advance(lex);
+            return;
         case '(':
             lex->current_token.kind = TOK_LPAREN;
             lexer_advance(lex);

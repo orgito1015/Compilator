@@ -56,6 +56,9 @@ static void codegen_expr_internal(Bytecode *bc, Expr *expr) {
                 case OP_DIV:
                     bc_emit(bc, BC_DIV);
                     break;
+                case OP_MOD:
+                    bc_emit(bc, BC_MOD);
+                    break;
             }
             break;
     }
