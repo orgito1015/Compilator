@@ -29,4 +29,7 @@ $(TARGET): $(BIN_DIR) $(OBJS)
 clean:
 	rm -f $(OBJS) $(TARGET)
 
-.PHONY: all clean
+test: $(TARGET)
+	@./tests/run_tests.sh
+
+.PHONY: all clean test

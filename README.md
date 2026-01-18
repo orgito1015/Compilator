@@ -26,6 +26,7 @@ OrionCC currently accepts a single expression per input file, with the following
   - `-` (subtraction)
   - `*` (multiplication)
   - `/` (integer division, truncating toward zero)
+  - `%` (modulo operation)
 - **Unary minus**:
   - `-x`
 - **Parentheses** to override precedence:
@@ -37,6 +38,7 @@ Examples of valid input:
 1 + 2 * (3 + 4)
 -5 + 10 * (2 + 3)
 (1 + 2 + 3) / 2
+100 % 7
 ```
 
 ---
@@ -53,7 +55,7 @@ The project is intentionally split into clear, focused modules:
 
   ```text
   expr   := term   (('+' | '-') term)*
-  term   := factor (('*' | '/') factor)*
+  term   := factor (('*' | '/' | '%') factor)*
   factor := NUMBER
           | '-' factor
           | '(' expr ')'
@@ -72,7 +74,7 @@ The project is intentionally split into clear, focused modules:
 - `src/codegen.*`  
   Translates the AST into a simple, linear **bytecode** format, using opcodes such as:
   - `BC_PUSH_CONST`
-  - `BC_ADD`, `BC_SUB`, `BC_MUL`, `BC_DIV`
+  - `BC_ADD`, `BC_SUB`, `BC_MUL`, `BC_DIV`, `BC_MOD`
   - `BC_NEG`
   - `BC_HALT`
 
@@ -140,14 +142,39 @@ echo "10 - 3 * 2" > myexpr.oc
 
 ---
 
-## 5. Extending OrionCC
+## 5. Running Tests
+
+OrionCC includes a comprehensive test suite with 34+ tests covering:
+- Basic arithmetic operations
+- Operator precedence
+- Parentheses and nested expressions
+- Unary operators
+- Error handling (division by zero, invalid input, etc.)
+
+To run the test suite:
+
+```bash
+make test
+```
+
+Or run the test script directly:
+
+```bash
+./tests/run_tests.sh
+```
+
+The test runner will display colored output showing which tests pass (✓) and fail (✗), along with a summary at the end.
+
+---
+
+## 6. Extending OrionCC
 
 OrionCC is intentionally minimal but structured for growth. Potential next steps:
 
 1. **Richer expression language**
    - Comparison operators: `<`, `>`, `<=`, `>=`, `==`, `!=`
    - Logical operators: `&&`, `||`
-   - Modulo operator: `%`
+   - ~~Modulo operator: `%`~~ ✓ **Already implemented!**
 
 2. **Statements and a tiny IR**
    - Variable declarations and assignments:
@@ -176,7 +203,7 @@ OrionCC is not intended to compete with GCC/Clang; instead, it aims to be a **cl
 
 ---
 
-## 6. License
+## 7. License
 
 You can treat this as an educational starting point and adapt it for your own projects or teaching material.  
 If you publish it, consider adding a standard open‑source license (e.g. MIT) and crediting the project name **OrionCC**.
