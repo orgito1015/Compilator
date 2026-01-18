@@ -174,7 +174,7 @@ OrionCC is intentionally minimal but structured for growth. Potential next steps
 1. **Richer expression language**
    - Comparison operators: `<`, `>`, `<=`, `>=`, `==`, `!=`
    - Logical operators: `&&`, `||`
-   - ~~Modulo operator: `%`~~ ✓ **Already implemented!**
+   - Modulo operator: `%` ✓ **Already implemented!**
 
 2. **Statements and a tiny IR**
    - Variable declarations and assignments:

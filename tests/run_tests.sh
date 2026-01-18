@@ -27,11 +27,15 @@ run_test() {
     TOTAL=$((TOTAL + 1))
     
     # Create temporary test file
-    echo "$input" > /tmp/test_input.oc
+    local test_file=$(mktemp --suffix=.oc)
+    echo "$input" > "$test_file"
     
     # Run the compiler
-    output=$($ORIONCC /tmp/test_input.oc 2>&1)
+    output=$($ORIONCC "$test_file" 2>&1)
     exit_code=$?
+    
+    # Clean up temporary file
+    rm -f "$test_file"
     
     if [ "$should_fail" = "true" ]; then
         # Test should fail
