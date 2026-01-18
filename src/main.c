@@ -61,7 +61,10 @@ int main(int argc, char **argv) {
     Expr *expr = parse_expression(&parser);
 
     if (lex.current_token.kind != TOK_EOF) {
-        fprintf(stderr, "Warning: extra tokens after valid expression\n");
+        fprintf(stderr, "Error: extra tokens after valid expression\n");
+        ast_free(expr);
+        free(source);
+        return EXIT_FAILURE;
     }
 
     Bytecode bc;

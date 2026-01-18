@@ -58,6 +58,17 @@ int vm_execute(const Bytecode *bc) {
                 stack[sp++] = a / b;
                 break;
             }
+            case BC_MOD: {
+                if (sp < 2) { fprintf(stderr, "VM error: stack underflow on MOD\n"); exit(EXIT_FAILURE); }
+                int b = stack[--sp];
+                int a = stack[--sp];
+                if (b == 0) {
+                    fprintf(stderr, "VM error: modulo by zero\n");
+                    exit(EXIT_FAILURE);
+                }
+                stack[sp++] = a % b;
+                break;
+            }
             case BC_NEG: {
                 if (sp < 1) { fprintf(stderr, "VM error: stack underflow on NEG\n"); exit(EXIT_FAILURE); }
                 int a = stack[--sp];

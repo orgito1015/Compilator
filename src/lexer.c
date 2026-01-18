@@ -1,4 +1,6 @@
 #include <ctype.h>
+#include <limits.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include "lexer.h"
 
@@ -34,7 +36,13 @@ void lexer_next(Lexer *lex) {
     if (isdigit((unsigned char)lex->current)) {
         int value = 0;
         while (isdigit((unsigned char)lex->current)) {
-            value = value * 10 + (lex->current - '0');
+            int digit = lex->current - '0';
+            /* Check for overflow before multiplication */
+            if (value > (INT_MAX - digit) / 10) {
+                fprintf(stderr, "Lexer error: number too large (overflow)\n");
+                exit(EXIT_FAILURE);
+            }
+            value = value * 10 + digit;
             lexer_advance(lex);
         }
         lex->current_token.kind = TOK_NUMBER;
@@ -57,6 +65,10 @@ void lexer_next(Lexer *lex) {
             return;
         case '/':
             lex->current_token.kind = TOK_SLASH;
+            lexer_advance(lex);
+            return;
+        case '%':
+            lex->current_token.kind = TOK_PERCENT;
             lexer_advance(lex);
             return;
         case '(':

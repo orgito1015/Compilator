@@ -10,6 +10,7 @@ typedef enum {
     TOK_MINUS,
     TOK_STAR,
     TOK_SLASH,
+    TOK_PERCENT,
     TOK_LPAREN,
     TOK_RPAREN
 } TokenKind;

@@ -49,14 +49,17 @@ static Expr *parse_term(Parser *p) {
     Expr *left = parse_factor(p);
 
     while (p->lex->current_token.kind == TOK_STAR ||
-           p->lex->current_token.kind == TOK_SLASH) {
+           p->lex->current_token.kind == TOK_SLASH ||
+           p->lex->current_token.kind == TOK_PERCENT) {
         TokenKind op = p->lex->current_token.kind;
         lexer_next(p->lex);
         Expr *right = parse_factor(p);
         if (op == TOK_STAR) {
             left = ast_binary(OP_MUL, left, right);
-        } else {
+        } else if (op == TOK_SLASH) {
             left = ast_binary(OP_DIV, left, right);
+        } else {
+            left = ast_binary(OP_MOD, left, right);
         }
     }
 
